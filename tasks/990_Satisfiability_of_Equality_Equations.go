@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // https://leetcode.com/problems/satisfiability-of-equality-equations/
 func equationsPossible(equations []string) bool {
 	graph := make(map[string]string)
@@ -38,10 +36,4 @@ func findRoot(variable string, graph map[string]string) string {
 	} else {
 		return variable
 	}
-}
-
-func main() {
-	equations := []string{"a==b", "b!=a"}
-
-	fmt.Println(equationsPossible(equations))
 }
