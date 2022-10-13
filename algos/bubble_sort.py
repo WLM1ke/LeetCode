@@ -14,7 +14,7 @@ def bubble_sort(seq):
 
 
 if __name__ == '__main__':
-    seq = list(range(10))
+    seq = list(range(9, -1, -1))
     random.shuffle(seq)
     print(seq)
     bubble_sort(seq)

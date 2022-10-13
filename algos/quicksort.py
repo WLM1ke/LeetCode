@@ -25,7 +25,7 @@ def helper(nums: list[int], left: int, right: int) -> None:
 
 
 if __name__ == '__main__':
-    seq = list(range(10))
+    seq = list(range(9, -1, -1))
     random.shuffle(seq)
     print(seq)
     quick_sort(seq)
