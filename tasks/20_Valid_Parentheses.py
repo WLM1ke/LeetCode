@@ -4,21 +4,19 @@ class Solution:
     def isValid(self, s: str) -> bool:
         mapper = {
             ")": "(",
-            "]": "[",
             "}": "{",
+            "]": "[",
         }
 
         stack = []
 
         for br in s:
-            if br not in mapper:
+            if not (br_open := mapper.get(br)):
                 stack.append(br)
 
                 continue
 
-            if not stack or stack[-1] != mapper[br]:
+            if not stack or stack.pop() != br_open:
                 return False
-
-            stack.pop()
 
         return not stack
