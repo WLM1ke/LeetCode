@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/merge-k-sorted-lists/
+import heapq
+
 from typing import List, Optional
 
 
@@ -36,5 +38,29 @@ class Solution:
 
         if list2:
             cur.next = list2
+
+        return root.next
+
+
+class SolutionHeap:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        root = cur = ListNode()
+
+        heap = []
+
+        for n, node in enumerate(lists):
+            if node:
+                heapq.heappush(heap, (node.val, n))
+
+        while heap:
+            _, n = heapq.heappop(heap)
+            node = lists[n]
+
+            cur.next = node
+            cur = node
+
+            if node.next:
+                heapq.heappush(heap, (node.next.val, n))
+                lists[n] = node.next
 
         return root.next
