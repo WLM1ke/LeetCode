@@ -3,20 +3,17 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         mapper = {
-            ")": "(",
             "}": "{",
             "]": "[",
+            ")": "(",
         }
 
         stack = []
 
         for br in s:
-            if not (br_open := mapper.get(br)):
+            if (br_open := mapper.get(br)) is None:
                 stack.append(br)
-
-                continue
-
-            if not stack or stack.pop() != br_open:
+            elif not stack or stack.pop() != br_open:
                 return False
 
         return not stack
