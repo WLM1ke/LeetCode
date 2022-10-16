@@ -2,9 +2,6 @@
 
 class Solution:
     def countArrangement(self, n: int) -> int:
-        if n == 1:
-            return 1
-
         return permutations(list(range(1, n + 1)))
 
 
