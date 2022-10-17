@@ -14,19 +14,25 @@ class Solution:
         if root is None:
             return []
 
-        return self.traverse(root, [], targetSum)
-
-    def traverse(self, root: TreeNode, path: List[int], targetSum: int) -> List[List[int]]:
-        path = path + [root.val]
-
-        if (not (root.left or root.right)) and sum(path) == targetSum:
-            return [path]
-
         rez = []
-        if root.left:
-            rez.extend(self.traverse(root.left, path, targetSum))
-
-        if root.right:
-            rez.extend(self.traverse(root.right, path, targetSum))
+        _traverse(rez, [], root, targetSum)
 
         return rez
+
+
+def _traverse(rez, cur, root, targetSum):
+    if root.left is None and root.right is None:
+        if sum(cur) + root.val == targetSum:
+            rez.append(cur + [root.val])
+
+        return
+
+    cur.append(root.val)
+
+    if root.left is not None:
+        _traverse(rez, cur, root.left, targetSum)
+
+    if root.right is not None:
+        _traverse(rez, cur, root.right, targetSum)
+
+    cur.pop()
