@@ -3,14 +3,15 @@
 
 class Solution:
     def lengthOfLastWord(self, s: str) -> int:
-        last_space = -1
-        has_letter = False
-        for pos, let in enumerate(reversed(s)):
-            if let == " " and not has_letter:
-                last_space = pos
-            elif let == " ":
-                return pos - last_space - 1
-            else:
-                has_letter = True
+        letter = None
+        pos = len(s) - 1
+        while pos >= 0:
+            if letter is None:
+                if s[pos] != " ":
+                    letter = pos
+            elif s[pos] == " ":
+                break
 
-        return len(s) - last_space - 1
+            pos -= 1
+
+        return letter - pos
