@@ -4,44 +4,27 @@ from typing import List
 
 class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
-        min_ops = 10 ** 6
-        cache = {}
-        running = 0
+        if (target := sum(nums) - x) < 0:
+            return -1
+        elif target == 0:
+            return len(nums)
 
-        for pos, num in enumerate(nums, 1):
-            running += num
+        window = 0
+        size = 0
+        best = -1
 
-            if running == x:
-                min_ops = pos
+        for pos, num in enumerate(nums):
+            window += num
+            size += 1
 
-                break
+            while window > target:
+                size -= 1
+                window -= nums[pos - size]
 
-            if running > x:
-                break
+            if window == target:
+                best = max(best, size)
 
-            cache[running] = pos
-
-        if running < x:
+        if best == -1:
             return -1
 
-        running = 0
-
-        for pos, num in enumerate(reversed(nums), 1):
-            running += num
-
-            if running == x:
-                return min(min_ops, pos)
-
-            if running > x:
-                break
-
-            if (pos_left := cache.get(x - running)) is not None:
-                if pos_left + pos > len(nums):
-                    continue
-
-                min_ops = min(min_ops, pos_left + pos)
-
-        if min_ops == 10 ** 6:
-            return -1
-
-        return min_ops
+        return len(nums) - best
