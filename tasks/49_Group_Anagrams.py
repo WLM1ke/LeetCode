@@ -6,8 +6,7 @@ class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         groups = {}
 
-        for anagram in strs:
-            gr = groups.setdefault(tuple(sorted(anagram)), [])
-            gr.append(anagram)
+        for word in strs:
+            groups.setdefault(tuple(sorted(word)), []).append(word)
 
-        return [gr for gr in groups.values()]
+        return list(groups.values())
