@@ -4,17 +4,17 @@ from typing import List
 
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
-        cache = {letter: n for n, letter in enumerate(s)}
+        cache = {let: pos for pos, let in enumerate(s)}
 
         pre = -1
-        last = 0
+        end = -1
         rez = []
 
-        for n, letter in enumerate(s):
-            last = max(last, cache[letter])
-            if last == n:
-                rez.append(n - pre)
-                pre = n
-                last = n
+        for pos, let in enumerate(s):
+            end = max(end, cache[let])
+
+            if end == pos:
+                rez.append(end - pre)
+                pre = end
 
         return rez
