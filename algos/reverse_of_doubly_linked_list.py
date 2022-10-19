@@ -6,9 +6,6 @@ class Node:
 
 
 def reverse(node: Node | None) -> Node | None:
-    if not Node:
-        return None
-
     prev = None
 
     while node:
