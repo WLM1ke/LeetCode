@@ -7,20 +7,15 @@ class Solution:
         intervals.sort()
 
         start = intervals[0][0]
-        end = intervals[0][1]
-
+        end = intervals[0][0]
         rez = []
 
-        for n in range(1, len(intervals)):
-            start_next = intervals[n][0]
-            end_next = intervals[n][1]
-            if start_next > end:
+        for l, r in intervals:
+            if l <= end:
+                end = max(end, r)
+            else:
                 rez.append([start, end])
-                start, end = start_next, end_next
-
-                continue
-
-            end = max(end, end_next)
+                start, end = l, r
 
         rez.append([start, end])
 
