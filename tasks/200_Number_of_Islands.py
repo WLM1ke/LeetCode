@@ -6,28 +6,18 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         count = 0
 
-        for n, row in enumerate(grid):
-            for k, mark in enumerate(row):
-                count += self.remove_island(grid, n, k)
+        for x, row in enumerate(grid):
+            for y, val in enumerate(row):
+                if val == "1":
+                    grid[x][y] = "0"
+                    count += 1
+                    _traverse(grid, x, y)
 
         return count
 
-    def remove_island(self, grid: List[List[str]], n: int, k: int) -> int:
-        if grid[n][k] == "0":
-            return 0
 
-        grid[n][k] = "0"
-
-        if n > 0:
-            self.remove_island(grid, n - 1, k)
-
-        if n < len(grid) - 1:
-            self.remove_island(grid, n + 1, k)
-
-        if k > 0:
-            self.remove_island(grid, n, k - 1)
-
-        if k < len(grid[0]) - 1:
-            self.remove_island(grid, n, k + 1)
-
-        return 1
+def _traverse(grid, x, y):
+    for xx, yy in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+        if 0 <= xx < len(grid) and 0 <= yy < len(grid[0]) and grid[xx][yy] == "1":
+            grid[xx][yy] = "0"
+            _traverse(grid, xx, yy)
