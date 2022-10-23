@@ -1,19 +1,16 @@
+# https://leetcode.com/problems/palindrome-number/
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        s = str(x)
+        if x == 0:
+            return True
 
-        return s == s[::-1]
-
-
-class Solution2:
-    def isPalindrome(self, x: int) -> bool:
-        if x < 0 or (x > 0 and x % 10 == 0):
+        if x < 0 or x % 10 == 0:
             return False
 
         rev = 0
 
-        while x > rev:
-            rev = rev * 10 + x % 10
-            x //= 10
+        while rev < x:
+            x, rem = divmod(x, 10)
+            rev = rev * 10 + rem
 
-        return x == rev or x == rev // 10
+        return rev == x or rev // 10 == x
