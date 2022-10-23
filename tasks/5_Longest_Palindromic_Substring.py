@@ -2,17 +2,23 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         best = ""
+        size = 0
 
         for pos in range(len(s)):
-            start = pos - len(best)
-            cur = s[start:pos + 1]
-            if cur == cur[::-1]:
-                best = cur
+            if is_poly(s[pos - size: pos + 1]):
+                best = s[pos - size: pos + 1]
+                size += 1
 
-            if start > 0:
-                start -= 1
-                cur = s[start:pos + 1]
-                if cur == cur[::-1]:
-                    best = cur
+            if pos - size - 1 >= 0 and is_poly(s[pos - size - 1: pos + 1]):
+                best = s[pos - size - 1: pos + 1]
+                size += 2
 
         return best
+
+
+def is_poly(s):
+    for pos in range(len(s) >> 1):
+        if s[pos] != s[~pos]:
+            return False
+
+    return True
