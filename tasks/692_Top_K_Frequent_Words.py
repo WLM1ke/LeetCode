@@ -1,10 +1,10 @@
 import collections
+import heapq
 from typing import List
 
 
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
-        rez = list(collections.Counter(words).items())
-        rez.sort(key=lambda x: (-x[1], x[0]))
+        counts = collections.Counter(words)
 
-        return [rez[i][0] for i in range(k)]
+        return heapq.nsmallest(k, counts, key=lambda x: (-counts[x], x))
